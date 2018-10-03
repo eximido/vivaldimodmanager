@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media;
+using WPFLocalizeExtension.Engine;
 
 namespace VivaldiModManager
 {
@@ -43,7 +44,7 @@ namespace VivaldiModManager
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return System.Convert.ToBoolean(value) ? "" : "Unable to change this!\nPlease run this tool as administrator.";
+            return System.Convert.ToBoolean(value) ? MainWindow.GetLocStr("VivaldiVersion") : MainWindow.GetLocStr("CantChangeRequireAdmin");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

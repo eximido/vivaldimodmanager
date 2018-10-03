@@ -129,11 +129,17 @@
   <data name="AddVersion" xml:space="preserve">
     <value>Добавить _версию</value>
   </data>
+  <data name="AddVersionTooltip" xml:space="preserve">
+    <value>Добавить версию Vivaldi из каталога</value>
+  </data>
   <data name="AlreadyRunning" xml:space="preserve">
     <value>Приложение уже запущено</value>
   </data>
   <data name="Backup" xml:space="preserve">
     <value>_Бекап</value>
+  </data>
+  <data name="CantChangeRequireAdmin" xml:space="preserve">
+    <value>Невозможно изменить элемент!\nЗапустите утилиту от администратора.</value>
   </data>
   <data name="CantFindVivaldi" xml:space="preserve">
     <value>Не могу найти Vivaldi</value>
@@ -144,17 +150,17 @@
   <data name="CantStartMigration" xml:space="preserve">
     <value>Не могу начать миграцию</value>
   </data>
-  <data name="CantStartMigrationMessage" xml:space="preserve">
+  <data name="CantStartMigrationNoSelection" xml:space="preserve">
     <value>Выберите версии Vivaldi для начала миграции</value>
+  </data>
+  <data name="CantStartMigrationSameVersions" xml:space="preserve">
+    <value>Вы выбрали одну и ту же версию Vivaldi</value>
   </data>
   <data name="Destination" xml:space="preserve">
     <value>Назначение:</value>
   </data>
   <data name="DisableAll" xml:space="preserve">
     <value>_Отключить все</value>
-  </data>
-  <data name="DownloadMods" xml:space="preserve">
-    <value>_Загрузить моды</value>
   </data>
   <data name="EnableAll" xml:space="preserve">
     <value>_Включить все</value>
@@ -168,6 +174,9 @@
   <data name="Language" xml:space="preserve">
     <value>Язык</value>
   </data>
+  <data name="Links" xml:space="preserve">
+    <value>Сс_ылки</value>
+  </data>
   <data name="Menu" xml:space="preserve">
     <value>Меню</value>
   </data>
@@ -180,8 +189,14 @@
   <data name="MigrationToolTitle" xml:space="preserve">
     <value>Мастер Миграции</value>
   </data>
+  <data name="ModManagerOnGitlab" xml:space="preserve">
+    <value>Mod Manager на GitLab</value>
+  </data>
   <data name="RemoveVersion" xml:space="preserve">
     <value>_Удалить версию</value>
+  </data>
+  <data name="RemoveVersionTooltip" xml:space="preserve">
+    <value>Удалить версию из списка версий</value>
   </data>
   <data name="Restore" xml:space="preserve">
     <value>Во_сстановить</value>
@@ -200,6 +215,24 @@
   </data>
   <data name="Versions" xml:space="preserve">
     <value>Версии</value>
+  </data>
+  <data name="VivaldiCommunity" xml:space="preserve">
+    <value>Сообщество Vivaldi</value>
+  </data>
+  <data name="VivaldiHelp" xml:space="preserve">
+    <value>Справка Vivaldi</value>
+  </data>
+  <data name="VivaldiHomepage" xml:space="preserve">
+    <value>Сайт Vivaldi</value>
+  </data>
+  <data name="VivaldiMods" xml:space="preserve">
+    <value>Модификации</value>
+  </data>
+  <data name="VivaldiSnapshots" xml:space="preserve">
+    <value>Тестовые версии</value>
+  </data>
+  <data name="VivaldiVersion" xml:space="preserve">
+    <value>Версия Vivaldi</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Внимание</value>

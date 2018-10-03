@@ -15,9 +15,6 @@ using MahApps.Metro.Controls;
 
 namespace VivaldiModManager
 {
-    /// <summary>
-    /// Логика взаимодействия для MigrationWizard.xaml
-    /// </summary>
     public partial class MigrationWizard : MetroWindow
     {
         public bool StartMigration = false;

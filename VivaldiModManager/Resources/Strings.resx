@@ -129,11 +129,17 @@
   <data name="AddVersion" xml:space="preserve">
     <value>Add _Version</value>
   </data>
+  <data name="AddVersionTooltip" xml:space="preserve">
+    <value>Add Vivaldi version from version directory</value>
+  </data>
   <data name="AlreadyRunning" xml:space="preserve">
     <value>Application is already running</value>
   </data>
   <data name="Backup" xml:space="preserve">
     <value>_Backup</value>
+  </data>
+  <data name="CantChangeRequireAdmin" xml:space="preserve">
+    <value>Unable to change this!\nPlease run this tool as administrator.</value>
   </data>
   <data name="CantFindVivaldi" xml:space="preserve">
     <value>Can't find Vivaldi</value>
@@ -144,17 +150,17 @@
   <data name="CantStartMigration" xml:space="preserve">
     <value>Can't start migration</value>
   </data>
-  <data name="CantStartMigrationMessage" xml:space="preserve">
+  <data name="CantStartMigrationNoSelection" xml:space="preserve">
     <value>Please select Vivaldi versions for migration process.</value>
+  </data>
+  <data name="CantStartMigrationSameVersions" xml:space="preserve">
+    <value>You selected same Vivaldi version</value>
   </data>
   <data name="Destination" xml:space="preserve">
     <value>Destination:</value>
   </data>
   <data name="DisableAll" xml:space="preserve">
     <value>_Disable All</value>
-  </data>
-  <data name="DownloadMods" xml:space="preserve">
-    <value>Do_wnload Mods</value>
   </data>
   <data name="EnableAll" xml:space="preserve">
     <value>_Enable All</value>
@@ -168,6 +174,9 @@
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="Links" xml:space="preserve">
+    <value>_Links</value>
+  </data>
   <data name="Menu" xml:space="preserve">
     <value>Menu</value>
   </data>
@@ -180,8 +189,14 @@
   <data name="MigrationToolTitle" xml:space="preserve">
     <value>Migration Tool</value>
   </data>
+  <data name="ModManagerOnGitlab" xml:space="preserve">
+    <value>Mod Manager on GitLab</value>
+  </data>
   <data name="RemoveVersion" xml:space="preserve">
     <value>Remove Ver_sion</value>
+  </data>
+  <data name="RemoveVersionTooltip" xml:space="preserve">
+    <value>Remove Vivaldi version from versions list</value>
   </data>
   <data name="Restore" xml:space="preserve">
     <value>_Restore</value>
@@ -200,6 +215,24 @@
   </data>
   <data name="Versions" xml:space="preserve">
     <value>Versions</value>
+  </data>
+  <data name="VivaldiCommunity" xml:space="preserve">
+    <value>Vivaldi Community</value>
+  </data>
+  <data name="VivaldiHelp" xml:space="preserve">
+    <value>Vivaldi Help</value>
+  </data>
+  <data name="VivaldiHomepage" xml:space="preserve">
+    <value>Vivaldi Homepage</value>
+  </data>
+  <data name="VivaldiMods" xml:space="preserve">
+    <value>Mods for Vivaldi</value>
+  </data>
+  <data name="VivaldiSnapshots" xml:space="preserve">
+    <value>Vivaldi Snapshots</value>
+  </data>
+  <data name="VivaldiVersion" xml:space="preserve">
+    <value>Vivaldi Version</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>

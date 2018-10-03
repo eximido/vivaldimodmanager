@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace VivaldiModManager
 {
-    class MigrateVersions
+    public class MigrateVersions
     {
         public string version { get; set; }
         public string modsDir { get; set; }
         public string modsPersistentDir { get; set; }
         public bool Selected { get; set; }
+        public bool Visible { get; set; }
     }
 }

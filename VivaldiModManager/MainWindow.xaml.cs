@@ -29,6 +29,11 @@ namespace VivaldiModManager
 {
     public partial class MainWindow : MetroWindow
     {
+        private static string homeUri = "https://gitlab.com/Neur0toxine/vivaldimodmanager";
+        private static string vivaldiHomeUri = "https://vivaldi.com";
+        private static string snapshotsUri = "https://vivaldi.com/blog/snapshots/";
+        private static string helpUri = "https://help.vivaldi.com";
+        private static string communityUri = "https://forum.vivaldi.net";
         private static string downloadModsUri = "https://forum.vivaldi.net/category/52/modifications";
         ModManager modman;
 
@@ -177,16 +182,13 @@ namespace VivaldiModManager
             foreach (string dir in dirs)
             {
                 string ver = regm.Match(dir).Value;
-                if(toVersions.Where(f => f.version == ver).Count() == 0)
+                fromVersions.Add(new MigrateVersions()
                 {
-                    fromVersions.Add(new MigrateVersions()
-                    {
-                        version = ver,
-                        modsDir = "",
-                        modsPersistentDir = dir,
-                        Selected = false
-                    });
-                }
+                    version = ver,
+                    modsDir = "",
+                    modsPersistentDir = dir,
+                    Selected = false
+                });
             }
             MigrationWizard mwiz = new MigrationWizard();
             mwiz.Owner = this;
@@ -200,16 +202,25 @@ namespace VivaldiModManager
             {
                 this.ShowMessageAsync(
                     GetLocStr("CantStartMigration"),
-                    GetLocStr("CantStartMigrationMessage"));
+                    GetLocStr("CantStartMigrationNoSelection"));
             }
             else
             {
                 if (mwiz.StartMigration)
                 {
-                    var toApp = this.modman.vivaldiInstallations.Where(f => f.version == toVersion.version).First();
-                    toApp.migrateFrom(fromVersion.modsPersistentDir);
-                    this.modman.selectVivaldiVersion(toApp.version);
-                    this.reconnectUI(true);
+                    if(fromVersion.modsPersistentDir == toVersion.modsPersistentDir)
+                    {
+                        this.ShowMessageAsync(
+                            GetLocStr("CantStartMigration"),
+                            GetLocStr("CantStartMigrationSameVersions"));
+                    }
+                    else
+                    {
+                        var toApp = this.modman.vivaldiInstallations.Where(f => f.version == toVersion.version).First();
+                        toApp.migrateFrom(fromVersion.modsPersistentDir);
+                        this.modman.selectVivaldiVersion(toApp.version);
+                        this.reconnectUI(true);
+                    }
                 }
             }
 
@@ -339,11 +350,6 @@ namespace VivaldiModManager
             }
         }
 
-        private void downloadMods_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start(downloadModsUri);
-        }
-
         private void about_Click(object sender, RoutedEventArgs e)
         {
             this.ShowMessageAsync("Vivaldi Mod Manager",
@@ -368,6 +374,36 @@ namespace VivaldiModManager
             this.EnglishCheck.IsChecked = false;
             this.RussianCheck.IsChecked = true;
             this.ChangeLanguage("ru");
+        }
+
+        private void goDownloadMods_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(downloadModsUri);
+        }
+
+        private void goToCommunity_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(communityUri);
+        }
+
+        private void goToHelp_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(helpUri);
+        }
+
+        private void goToSnapshots_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(snapshotsUri);
+        }
+
+        private void goToVivaldiHome_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(vivaldiHomeUri);
+        }
+
+        private void goToHome_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(homeUri);
         }
     }
 

@@ -39,7 +39,15 @@
                         <Separator />
                         <MenuItem Header="{lex:Loc MigrationTool}" Click="callMigrationTool" />
                         <Separator />
-                        <MenuItem Header="{lex:Loc DownloadMods}" Click="downloadMods_Click" />
+                        <MenuItem Header="{lex:Loc Links}">
+                            <MenuItem Header="{lex:Loc ModManagerOnGitlab}" Click="goToHome_Click" />
+                            <Separator />
+                            <MenuItem Header="{lex:Loc VivaldiHomepage}" Click="goToVivaldiHome_Click" />
+                            <MenuItem Header="{lex:Loc VivaldiSnapshots}" Click="goToSnapshots_Click" />
+                            <MenuItem Header="{lex:Loc VivaldiHelp}" Click="goToHelp_Click" />
+                            <MenuItem Header="{lex:Loc VivaldiCommunity}" Click="goToCommunity_Click" />
+                            <MenuItem Header="{lex:Loc VivaldiMods}" Click="goDownloadMods_Click" />
+                        </MenuItem>
                         <MenuItem Header="{lex:Loc Language}">
                             <MenuItem x:Name="EnglishCheck" Click="EnglishCheck_Click" Header="{lex:Loc English}" IsChecked="True" />
                             <MenuItem x:Name="RussianCheck" Click="RussianCheck_Click" Header="{lex:Loc Russian}" IsChecked="false" />
@@ -176,16 +184,16 @@
         <Button x:Name="addFromFile_button" Content="{lex:Loc AddFromFile}" HorizontalAlignment="Left" Margin="10,0,0,5" Width="110" Height="29" VerticalAlignment="Bottom" Click="addFromFile_button_Click"/>
         <Button x:Name="disableAll_button" Content="{lex:Loc DisableAll}" HorizontalAlignment="Left" Margin="125,0,0,5" Width="120" Height="29" VerticalAlignment="Bottom" Click="disableAll_button_Click"/>
         <Button x:Name="backup_Button" Content="{lex:Loc Backup}" HorizontalAlignment="Left" Margin="250,0,0,5" Width="80" Height="29" VerticalAlignment="Bottom" Click="backup_Button_Click"/>
-        <GridSplitter x:Name="gridSplitter" Margin="0,0,230,0" Background="{StaticResource AccentColorBrush}" Width="2" />
+        <GridSplitter x:Name="gridSplitter" Margin="0,0,230,0" Background="{StaticResource AccentColorBrush}" Width="2" Cursor="Arrow" />
         <Button x:Name="restore_Button" Content="{lex:Loc Restore}" HorizontalAlignment="Left" Margin="335,0,0,5" Width="119" Height="29" VerticalAlignment="Bottom" Click="restore_Button_Click"/>
-        <Button x:Name="addVersion_Button" HorizontalAlignment="Right" Margin="0,0,117,5" Width="108" Height="29" VerticalAlignment="Bottom" Click="addVersion_Button_Click">
+        <Button x:Name="addVersion_Button" ToolTip="{lex:Loc AddVersionTooltip}" HorizontalAlignment="Right" Margin="0,0,117,5" Width="108" Height="29" VerticalAlignment="Bottom" Click="addVersion_Button_Click">
             <Rectangle Width="18" Height="18" Stretch="Fill">
                 <Rectangle.Fill>
                     <VisualBrush Visual="{StaticResource appbar_add}" />
                 </Rectangle.Fill>
             </Rectangle>
         </Button>
-        <Button x:Name="removeVersion_Button" HorizontalAlignment="Right" Margin="0,0,3,5" Width="109" Height="29" VerticalAlignment="Bottom" Click="removeVersion_Button_Click">
+        <Button x:Name="removeVersion_Button" ToolTip="{lex:Loc RemoveVersionTooltip}" HorizontalAlignment="Right" Margin="0,0,3,5" Width="109" Height="29" VerticalAlignment="Bottom" Click="removeVersion_Button_Click">
             <Rectangle Width="18" Height="18" Stretch="Fill">
                 <Rectangle.Fill>
                     <VisualBrush Visual="{StaticResource appbar_delete}" />

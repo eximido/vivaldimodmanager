@@ -97,6 +97,15 @@ namespace VivaldiModManager.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Add Vivaldi version from version directory.
+        /// </summary>
+        public static string AddVersionTooltip {
+            get {
+                return ResourceManager.GetString("AddVersionTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Application is already running.
         /// </summary>
         public static string AlreadyRunning {
@@ -111,6 +120,15 @@ namespace VivaldiModManager.Resources {
         public static string Backup {
             get {
                 return ResourceManager.GetString("Backup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Unable to change this!\nPlease run this tool as administrator..
+        /// </summary>
+        public static string CantChangeRequireAdmin {
+            get {
+                return ResourceManager.GetString("CantChangeRequireAdmin", resourceCulture);
             }
         }
         
@@ -144,9 +162,18 @@ namespace VivaldiModManager.Resources {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Please select Vivaldi versions for migration process..
         /// </summary>
-        public static string CantStartMigrationMessage {
+        public static string CantStartMigrationNoSelection {
             get {
-                return ResourceManager.GetString("CantStartMigrationMessage", resourceCulture);
+                return ResourceManager.GetString("CantStartMigrationNoSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на You selected same Vivaldi version.
+        /// </summary>
+        public static string CantStartMigrationSameVersions {
+            get {
+                return ResourceManager.GetString("CantStartMigrationSameVersions", resourceCulture);
             }
         }
         
@@ -165,15 +192,6 @@ namespace VivaldiModManager.Resources {
         public static string DisableAll {
             get {
                 return ResourceManager.GetString("DisableAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Do_wnload Mods.
-        /// </summary>
-        public static string DownloadMods {
-            get {
-                return ResourceManager.GetString("DownloadMods", resourceCulture);
             }
         }
         
@@ -214,6 +232,15 @@ namespace VivaldiModManager.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на _Links.
+        /// </summary>
+        public static string Links {
+            get {
+                return ResourceManager.GetString("Links", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Menu.
         /// </summary>
         public static string Menu {
@@ -250,11 +277,29 @@ namespace VivaldiModManager.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Mod Manager on GitLab.
+        /// </summary>
+        public static string ModManagerOnGitlab {
+            get {
+                return ResourceManager.GetString("ModManagerOnGitlab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Remove Ver_sion.
         /// </summary>
         public static string RemoveVersion {
             get {
                 return ResourceManager.GetString("RemoveVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Remove Vivaldi version from versions list.
+        /// </summary>
+        public static string RemoveVersionTooltip {
+            get {
+                return ResourceManager.GetString("RemoveVersionTooltip", resourceCulture);
             }
         }
         
@@ -309,6 +354,60 @@ namespace VivaldiModManager.Resources {
         public static string Versions {
             get {
                 return ResourceManager.GetString("Versions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Vivaldi Community.
+        /// </summary>
+        public static string VivaldiCommunity {
+            get {
+                return ResourceManager.GetString("VivaldiCommunity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Vivaldi Help.
+        /// </summary>
+        public static string VivaldiHelp {
+            get {
+                return ResourceManager.GetString("VivaldiHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Vivaldi Homepage.
+        /// </summary>
+        public static string VivaldiHomepage {
+            get {
+                return ResourceManager.GetString("VivaldiHomepage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Mods for Vivaldi.
+        /// </summary>
+        public static string VivaldiMods {
+            get {
+                return ResourceManager.GetString("VivaldiMods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Vivaldi Snapshots.
+        /// </summary>
+        public static string VivaldiSnapshots {
+            get {
+                return ResourceManager.GetString("VivaldiSnapshots", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Vivaldi Version.
+        /// </summary>
+        public static string VivaldiVersion {
+            get {
+                return ResourceManager.GetString("VivaldiVersion", resourceCulture);
             }
         }
         

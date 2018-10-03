@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BoolToVis" />
             <local:ButtonTextColorConverter x:Key="ButtonTextColorConverter" AccentColor="{StaticResource AccentColorBrush}" />
             <local:ButtonBgColorConverter x:Key="ButtonBgColorConverter" AccentColor="{StaticResource AccentColorBrush}"  />
             <local:UnableToChangeThisConverter x:Key="UnableToChangeThisConverter" />
