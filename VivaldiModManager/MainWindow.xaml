@@ -1,0 +1,196 @@
+﻿<Controls:MetroWindow x:Name="mainWindow" x:Class="VivaldiModManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:VivaldiModManager"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="en"
+        lex:ResxLocalizationProvider.DefaultAssembly="VivaldiModManager"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
+        mc:Ignorable="d"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        Title="Vivaldi Mod Manager" Height="463" Width="699" WindowStartupLocation="CenterScreen" AllowDrop="True" Drop="mainWindow_Drop" MinWidth="644" MinHeight="448">
+    <Controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Controls:MetroWindow.Resources>
+    <Controls:MetroWindow.WindowButtonCommands>
+        <Controls:WindowButtonCommands Style="{DynamicResource MahApps.Metro.Styles.WindowButtonCommands.Win10}" />
+    </Controls:MetroWindow.WindowButtonCommands>
+    <Controls:MetroWindow.LeftWindowCommands>
+        <Controls:WindowCommands>
+            <Button ToolTip="{lex:Loc Menu}" local:ContextMenuLeftClickBehavior.IsLeftClickEnabled="True">
+                <Button.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{lex:Loc AddFromFile}" Click="addFromFile_button_Click" />
+                        <MenuItem Header="{lex:Loc EnableAll}" Click="enableAll_button_Click" />
+                        <MenuItem Header="{lex:Loc DisableAll}" Click="disableAll_button_Click" />
+                        <Separator />
+                        <MenuItem Header="{lex:Loc Backup}" Click="backup_Button_Click" />
+                        <MenuItem Header="{lex:Loc Restore}" Click="restore_Button_Click" />
+                        <Separator />
+                        <MenuItem Header="{lex:Loc AddVersion}" Click="addVersion_Button_Click" />
+                        <MenuItem Header="{lex:Loc RemoveVersion}" Click="removeVersion_Button_Click" />
+                        <Separator />
+                        <MenuItem Header="{lex:Loc MigrationTool}" Click="callMigrationTool" />
+                        <Separator />
+                        <MenuItem Header="{lex:Loc DownloadMods}" Click="downloadMods_Click" />
+                        <MenuItem Header="{lex:Loc Language}">
+                            <MenuItem x:Name="EnglishCheck" Click="EnglishCheck_Click" Header="{lex:Loc English}" IsChecked="True" />
+                            <MenuItem x:Name="RussianCheck" Click="RussianCheck_Click" Header="{lex:Loc Russian}" IsChecked="false" />
+                        </MenuItem>
+                        <MenuItem Header="{lex:Loc About}" Click="about_Click" />
+                        <Separator />
+                        <MenuItem Header="{lex:Loc Exit}" Click="exit_Click" />
+                    </ContextMenu>
+                </Button.ContextMenu>
+                <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform" Width="20" Height="20">
+                    <Canvas Name="Capa_1" Width="514.956" Height="514.956" Canvas.Left="0" Canvas.Top="0">
+                        <Canvas.RenderTransform>
+                            <TranslateTransform X="0" Y="0"/>
+                        </Canvas.RenderTransform>
+                        <Canvas.Resources/>
+                        <!--Unknown tag: metadata-->
+                        <!--Unknown tag: sodipodi:namedview-->
+                        <Canvas Name="g3768">
+                            <Canvas Name="g3862">
+                                <Canvas Name="g3857">
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path3760" Fill="#FFFFFFFF">
+                                        <Path.Data>
+                                            <PathGeometry Figures="m 346.245 7.796 c -66.004 0 -119.731 53.705 -119.731 119.731 0 66.026 53.726 119.731 119.731 119.731 66.026 0 119.731 -53.705 119.731 -119.731 0 -66.026 -53.705 -119.731 -119.731 -119.731 z m 0 195.923 c -6.008 0 -10.885 -4.876 -10.885 -10.885 0 -5.987 4.876 -10.885 10.885 -10.885 30.02 0 54.423 -24.403 54.423 -54.423 0 -5.987 4.876 -10.885 10.885 -10.885 6.008 0 10.885 4.898 10.885 10.885 -10e-4 42.059 -34.179 76.193 -76.193 76.193 z" FillRule="NonZero"/>
+                                        </Path.Data>
+                                    </Path>
+                                </Canvas>
+                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path3764" Fill="#FFFFFFFF" StrokeThickness="0.99425972">
+                                    <Path.Data>
+                                        <PathGeometry Figures="m 497.30859 137.48828 c -0.0605 -0.0523 -0.41973 0.91389 -0.5 1.2832 -0.009 0.042 -0.0144 0.0849 -0.0234 0.12696 0.004 -0.001 0.008 -0.003 0.0117 -0.004 0.17228 -0.43844 0.47211 -0.84751 0.51757 -1.31641 0.005 -0.0537 0.003 -0.0824 -0.006 -0.0898 z M 167.07617 329.42773 c -32.7698 0 -65.90625 22.53185 -65.90625 65.625 0 24.58805 -19.999851 44.58789 -44.587889 44.58789 -14.761769 0 -28.505389 -7.27216 -36.816406 -19.52343 -3.159757 -4.61038 -9.329335 -6.05929 -14.1992188 -3.33203 -4.91363026 2.70538 -6.9027422 8.72217 -4.63085932 13.85156 20.30277812 45.6047 59.82302612 71.75 108.39257312 71.75 38.5047 0 76.0369 -16.81668 99.58594 -43.84961 23.54904 27.03392 61.08091 43.84961 99.60742 43.84961 48.56959 0 88.06892 -26.1453 108.39258 -71.75 2.27487 -5.10751 0.28434 -11.14618 -4.60742 -13.85156 -4.93451 -2.72726 -11.06034 -1.27736 -14.19922 3.33203 -8.35476 12.25027 -22.09799 19.52343 -36.83789 19.52343 -24.58804 0 -44.56641 -19.99984 -44.56641 -44.58789 0 -43.09414 -33.15792 -65.625 -65.92773 -65.625 -15.56215 0 -30.28118 4.89281 -41.86133 13.65821 -11.53639 -8.76639 -26.27574 -13.65821 -41.83789 -13.65821 z" FillRule="NonZero"/>
+                                    </Path.Data>
+                                    <Path.RenderTransform>
+                                        <ScaleTransform ScaleX="1.0057734" ScaleY="1.0057734"/>
+                                    </Path.RenderTransform>
+                                </Path>
+                            </Canvas>
+                        </Canvas>
+                        <Canvas Name="g3770"/>
+                        <Canvas Name="g3772"/>
+                        <Canvas Name="g3774"/>
+                        <Canvas Name="g3776"/>
+                        <Canvas Name="g3778"/>
+                        <Canvas Name="g3780"/>
+                        <Canvas Name="g3782"/>
+                        <Canvas Name="g3784"/>
+                        <Canvas Name="g3786"/>
+                        <Canvas Name="g3788"/>
+                        <Canvas Name="g3790"/>
+                        <Canvas Name="g3792"/>
+                        <Canvas Name="g3794"/>
+                        <Canvas Name="g3796"/>
+                        <Canvas Name="g3798"/>
+                    </Canvas>
+                </Viewbox>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.LeftWindowCommands>
+    <Grid>
+        <TabControl x:Name="tabControl" Margin="3,3,232,36">
+            <TabItem Header="{lex:Loc Scripts}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Background="#FFFFFFFF" Orientation="Vertical">
+                        <ItemsControl Name="vivaldiScripts"  BorderThickness="0">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Width="Auto">
+                                        <CheckBox IsChecked="{Binding isEnabled}" Content="{Binding fileName, Converter={StaticResource RemoveDotEnabledConverter}}" Command="{Binding Path=ToggleModCommand}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}, Mode=OneWay}" Margin="0,0,27,0" />
+                                        <Button Width="22" Height="22" HorizontalAlignment="Right" Command="{Binding Path=RemoveModCommand}">
+                                            <Grid>
+                                                <Rectangle Margin="-8">
+                                                    <Rectangle.Fill>
+                                                        <VisualBrush Visual="{StaticResource appbar_delete}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </Grid>
+                                        </Button>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="{lex:Loc Styles}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Background="#FFFFFFFF" Orientation="Vertical">
+                        <ItemsControl Name="vivaldiStyles"  BorderThickness="0">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Width="Auto">
+                                        <CheckBox IsChecked="{Binding isEnabled}" Content="{Binding fileName, Converter={StaticResource RemoveDotEnabledConverter}}" Command="{Binding Path=ToggleModCommand}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}, Mode=OneWay}" Margin="0,0,27,0" />
+                                        <Button Width="22" Height="22" HorizontalAlignment="Right" Command="{Binding Path=RemoveModCommand}">
+                                            <Grid>
+                                                <Rectangle Margin="-8">
+                                                    <Rectangle.Fill>
+                                                        <VisualBrush Visual="{StaticResource appbar_delete}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </Grid>
+                                        </Button>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+        <TabControl x:Name="tabControl1" Margin="0,3,3,36" HorizontalAlignment="Right" Width="227">
+            <TabItem Header="{lex:Loc Versions}" Margin="10,0,-46,0">
+                <Grid Background="#FFFFFFFF">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="223*"/>
+                        <RowDefinition Height="52*"/>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.RowSpan="2">
+                        <StackPanel Orientation="Vertical" Margin="10,0" Grid.RowSpan="2">
+                            <ItemsControl Name="vivaldiVersionsList"  BorderThickness="0">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Background="{Binding isSelected, Converter={StaticResource ButtonBgColorConverter}}" Click="changeVersion_Click">
+                                            <StackPanel Orientation="Horizontal" ToolTip="{Binding Enabled, Converter={StaticResource UnableToChangeThisConverter}}">
+                                                <CheckBox IsChecked="{Binding isModsEnabled}" Command="{Binding Path=ToggleModsCommand}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}, Mode=OneWay}" />
+                                                <Label Content="{Binding version}" Foreground="{Binding isSelected, Converter={StaticResource ButtonTextColorConverter}}" />
+                                            </StackPanel>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button x:Name="addFromFile_button" Content="{lex:Loc AddFromFile}" HorizontalAlignment="Left" Margin="10,0,0,5" Width="110" Height="29" VerticalAlignment="Bottom" Click="addFromFile_button_Click"/>
+        <Button x:Name="disableAll_button" Content="{lex:Loc DisableAll}" HorizontalAlignment="Left" Margin="125,0,0,5" Width="120" Height="29" VerticalAlignment="Bottom" Click="disableAll_button_Click"/>
+        <Button x:Name="backup_Button" Content="{lex:Loc Backup}" HorizontalAlignment="Left" Margin="250,0,0,5" Width="80" Height="29" VerticalAlignment="Bottom" Click="backup_Button_Click"/>
+        <GridSplitter x:Name="gridSplitter" Margin="0,0,230,0" Background="{StaticResource AccentColorBrush}" Width="2" />
+        <Button x:Name="restore_Button" Content="{lex:Loc Restore}" HorizontalAlignment="Left" Margin="335,0,0,5" Width="119" Height="29" VerticalAlignment="Bottom" Click="restore_Button_Click"/>
+        <Button x:Name="addVersion_Button" HorizontalAlignment="Right" Margin="0,0,117,5" Width="108" Height="29" VerticalAlignment="Bottom" Click="addVersion_Button_Click">
+            <Rectangle Width="18" Height="18" Stretch="Fill">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_add}" />
+                </Rectangle.Fill>
+            </Rectangle>
+        </Button>
+        <Button x:Name="removeVersion_Button" HorizontalAlignment="Right" Margin="0,0,3,5" Width="109" Height="29" VerticalAlignment="Bottom" Click="removeVersion_Button_Click">
+            <Rectangle Width="18" Height="18" Stretch="Fill">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_delete}" />
+                </Rectangle.Fill>
+            </Rectangle>
+        </Button>
+    </Grid>
+</Controls:MetroWindow>
