@@ -12,6 +12,5 @@ namespace VivaldiModManager
         public string modsDir { get; set; }
         public string modsPersistentDir { get; set; }
         public bool Selected { get; set; }
-        public bool Visible { get; set; }
     }
 }

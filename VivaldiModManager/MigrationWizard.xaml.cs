@@ -18,6 +18,7 @@ namespace VivaldiModManager
     public partial class MigrationWizard : MetroWindow
     {
         public bool StartMigration = false;
+        public bool deletePrevious = false;
         public MigrationWizard()
         {
             InitializeComponent();
@@ -26,6 +27,7 @@ namespace VivaldiModManager
         private void migrateButton_Click(object sender, RoutedEventArgs e)
         {
             this.StartMigration = true;
+            this.deletePrevious = this.deletePreviousCheck.IsChecked ?? false;
             this.Close();
         }
     }

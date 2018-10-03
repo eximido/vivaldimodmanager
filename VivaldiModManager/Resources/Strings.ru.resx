@@ -156,11 +156,17 @@
   <data name="CantStartMigrationSameVersions" xml:space="preserve">
     <value>Вы выбрали одну и ту же версию Vivaldi</value>
   </data>
+  <data name="DeletePreviousVersionMigration" xml:space="preserve">
+    <value>Удалить исходную версию</value>
+  </data>
   <data name="Destination" xml:space="preserve">
     <value>Назначение:</value>
   </data>
   <data name="DisableAll" xml:space="preserve">
     <value>_Отключить все</value>
+  </data>
+  <data name="EditMod" xml:space="preserve">
+    <value>Редактировать мод</value>
   </data>
   <data name="EnableAll" xml:space="preserve">
     <value>_Включить все</value>
@@ -170,6 +176,9 @@
   </data>
   <data name="Exit" xml:space="preserve">
     <value>Вы_ход</value>
+  </data>
+  <data name="ExtractMod" xml:space="preserve">
+    <value>Извлечь мод</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Язык</value>
@@ -191,6 +200,9 @@
   </data>
   <data name="ModManagerOnGitlab" xml:space="preserve">
     <value>Mod Manager на GitLab</value>
+  </data>
+  <data name="RemoveMod" xml:space="preserve">
+    <value>Удалить мод</value>
   </data>
   <data name="RemoveVersion" xml:space="preserve">
     <value>_Удалить версию</value>

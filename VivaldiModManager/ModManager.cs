@@ -64,6 +64,26 @@ namespace VivaldiModManager
                 }
             }
 
+            public void EditMod()
+            {
+                MessageBox.Show("Not implemented yet");
+            }
+
+            public void ExtractMod()
+            {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.DefaultExt = Path.GetExtension(this.fileName);
+                sfd.FileName = this.fileName;
+                if(sfd.ShowDialog() ?? false)
+                {
+                    try
+                    {
+                        File.Copy(this.filePath, sfd.FileName);
+                    }
+                    catch { }
+                }
+            }
+
             public void RemoveMod()
             {
                 File.Delete(this.filePath);
@@ -81,6 +101,32 @@ namespace VivaldiModManager
                             param => true);
                     }
                     return _toggleModCommand;
+                }
+            }
+
+            RelayCommand _editModCommand; public ICommand EditModCommand
+            {
+                get
+                {
+                    if (_editModCommand == null)
+                    {
+                        _editModCommand = new RelayCommand(param => this.EditMod(),
+                            param => true);
+                    }
+                    return _editModCommand;
+                }
+            }
+
+            RelayCommand _extractModCommand; public ICommand ExtractModCommand
+            {
+                get
+                {
+                    if (_extractModCommand == null)
+                    {
+                        _extractModCommand = new RelayCommand(param => this.ExtractMod(),
+                            param => true);
+                    }
+                    return _extractModCommand;
                 }
             }
 
@@ -265,7 +311,7 @@ namespace VivaldiModManager
                 }
             }
 
-            public void migrateFrom(string modsPersistentDirFrom)
+            public void migrateFrom(string modsPersistentDirFrom, bool deletePrevious)
             {
                 if(this.Enabled)
                 {
@@ -273,7 +319,7 @@ namespace VivaldiModManager
                     this.initModsEnabled();
                     this.Copy(modsPersistentDirFrom, this.modsPersistentDir);
                     this.Copy(modsPersistentDir, this.modsDir);
-                    Directory.Delete(modsPersistentDirFrom, true);
+                    if(deletePrevious) Directory.Delete(modsPersistentDirFrom, true);
                     this.searchMods();
                 }
             }

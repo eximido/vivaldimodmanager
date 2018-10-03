@@ -217,7 +217,7 @@ namespace VivaldiModManager
                     else
                     {
                         var toApp = this.modman.vivaldiInstallations.Where(f => f.version == toVersion.version).First();
-                        toApp.migrateFrom(fromVersion.modsPersistentDir);
+                        toApp.migrateFrom(fromVersion.modsPersistentDir, mwiz.deletePrevious);
                         this.modman.selectVivaldiVersion(toApp.version);
                         this.reconnectUI(true);
                     }

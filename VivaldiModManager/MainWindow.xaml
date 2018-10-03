@@ -11,7 +11,7 @@
         lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         mc:Ignorable="d"
         GlowBrush="{DynamicResource AccentColorBrush}"
-        Title="Vivaldi Mod Manager" Height="463" Width="699" WindowStartupLocation="CenterScreen" AllowDrop="True" Drop="mainWindow_Drop" MinWidth="644" MinHeight="448">
+        Title="Vivaldi Mod Manager" Height="463" Width="699" WindowStartupLocation="CenterScreen" AllowDrop="True" Drop="mainWindow_Drop" MinWidth="699" MinHeight="463">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -113,8 +113,26 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Grid Width="Auto">
-                                        <CheckBox IsChecked="{Binding isEnabled}" Content="{Binding fileName, Converter={StaticResource RemoveDotEnabledConverter}}" Command="{Binding Path=ToggleModCommand}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}, Mode=OneWay}" Margin="0,0,27,0" />
-                                        <Button Width="22" Height="22" HorizontalAlignment="Right" Command="{Binding Path=RemoveModCommand}">
+                                        <CheckBox IsChecked="{Binding isEnabled}" Content="{Binding fileName, Converter={StaticResource RemoveDotEnabledConverter}}" Command="{Binding Path=ToggleModCommand}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}, Mode=OneWay}" Margin="0,0,71,0" />
+                                        <Button Width="22" Height="22" HorizontalAlignment="Right" Command="{Binding Path=EditModCommand}" Margin="0,0,44,0" ToolTip="{lex:Loc EditMod}">
+                                            <Grid>
+                                                <Rectangle Margin="-8">
+                                                    <Rectangle.Fill>
+                                                        <VisualBrush Visual="{StaticResource appbar_edit}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </Grid>
+                                        </Button>
+                                        <Button Width="22" Height="22" HorizontalAlignment="Right" Command="{Binding Path=ExtractModCommand}" Margin="0,0,22,0" ToolTip="{lex:Loc ExtractMod}">
+                                            <Grid>
+                                                <Rectangle Margin="-8">
+                                                    <Rectangle.Fill>
+                                                        <VisualBrush Visual="{StaticResource appbar_page}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </Grid>
+                                        </Button>
+                                        <Button Width="22" Height="22" HorizontalAlignment="Right" Command="{Binding Path=RemoveModCommand}" ToolTip="{lex:Loc RemoveMod}">
                                             <Grid>
                                                 <Rectangle Margin="-8">
                                                     <Rectangle.Fill>
@@ -137,8 +155,26 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Grid Width="Auto">
-                                        <CheckBox IsChecked="{Binding isEnabled}" Content="{Binding fileName, Converter={StaticResource RemoveDotEnabledConverter}}" Command="{Binding Path=ToggleModCommand}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}, Mode=OneWay}" Margin="0,0,27,0" />
-                                        <Button Width="22" Height="22" HorizontalAlignment="Right" Command="{Binding Path=RemoveModCommand}">
+                                        <CheckBox IsChecked="{Binding isEnabled}" Content="{Binding fileName, Converter={StaticResource RemoveDotEnabledConverter}}" Command="{Binding Path=ToggleModCommand}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}, Mode=OneWay}" Margin="0,0,71,0" />
+                                        <Button Width="22" Height="22" HorizontalAlignment="Right" Command="{Binding Path=EditModCommand}" Margin="0,0,44,0" ToolTip="{lex:Loc EditMod}">
+                                            <Grid>
+                                                <Rectangle Margin="-8">
+                                                    <Rectangle.Fill>
+                                                        <VisualBrush Visual="{StaticResource appbar_edit}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </Grid>
+                                        </Button>
+                                        <Button Width="22" Height="22" HorizontalAlignment="Right" Command="{Binding Path=ExtractModCommand}" Margin="0,0,22,0" ToolTip="{lex:Loc ExtractMod}">
+                                            <Grid>
+                                                <Rectangle Margin="-8">
+                                                    <Rectangle.Fill>
+                                                        <VisualBrush Visual="{StaticResource appbar_page}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </Grid>
+                                        </Button>
+                                        <Button Width="22" Height="22" HorizontalAlignment="Right" Command="{Binding Path=RemoveModCommand}" ToolTip="{lex:Loc RemoveMod}">
                                             <Grid>
                                                 <Rectangle Margin="-8">
                                                     <Rectangle.Fill>

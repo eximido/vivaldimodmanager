@@ -178,6 +178,15 @@ namespace VivaldiModManager.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Delete source version.
+        /// </summary>
+        public static string DeletePreviousVersionMigration {
+            get {
+                return ResourceManager.GetString("DeletePreviousVersionMigration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Destination:.
         /// </summary>
         public static string Destination {
@@ -192,6 +201,15 @@ namespace VivaldiModManager.Resources {
         public static string DisableAll {
             get {
                 return ResourceManager.GetString("DisableAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Edit Mod.
+        /// </summary>
+        public static string EditMod {
+            get {
+                return ResourceManager.GetString("EditMod", resourceCulture);
             }
         }
         
@@ -219,6 +237,15 @@ namespace VivaldiModManager.Resources {
         public static string Exit {
             get {
                 return ResourceManager.GetString("Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Extract Mod.
+        /// </summary>
+        public static string ExtractMod {
+            get {
+                return ResourceManager.GetString("ExtractMod", resourceCulture);
             }
         }
         
@@ -282,6 +309,15 @@ namespace VivaldiModManager.Resources {
         public static string ModManagerOnGitlab {
             get {
                 return ResourceManager.GetString("ModManagerOnGitlab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Remove Mod.
+        /// </summary>
+        public static string RemoveMod {
+            get {
+                return ResourceManager.GetString("RemoveMod", resourceCulture);
             }
         }
         
