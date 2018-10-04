@@ -182,10 +182,11 @@ namespace VivaldiModManager
             foreach (string dir in dirs)
             {
                 string ver = regm.Match(dir).Value;
+                var sameInSidebar = this.modman.vivaldiInstallations.Where(f => f.modsPersistentDir == dir).FirstOrDefault();
                 fromVersions.Add(new MigrateVersions()
                 {
                     version = ver,
-                    modsDir = "",
+                    modsDir = sameInSidebar == null ? null : sameInSidebar.modsDir,
                     modsPersistentDir = dir,
                     Selected = false
                 });
@@ -217,7 +218,7 @@ namespace VivaldiModManager
                     else
                     {
                         var toApp = this.modman.vivaldiInstallations.Where(f => f.version == toVersion.version).First();
-                        toApp.migrateFrom(fromVersion.modsPersistentDir, mwiz.deletePrevious);
+                        toApp.migrateFrom(fromVersion, mwiz.deletePrevious);
                         this.modman.selectVivaldiVersion(toApp.version);
                         this.reconnectUI(true);
                     }

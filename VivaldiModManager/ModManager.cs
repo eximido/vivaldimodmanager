@@ -311,15 +311,19 @@ namespace VivaldiModManager
                 }
             }
 
-            public void migrateFrom(string modsPersistentDirFrom, bool deletePrevious)
+            public void migrateFrom(MigrateVersions version, bool deletePrevious)
             {
                 if(this.Enabled)
                 {
                     if (!this.isModsEnabled) this.ToggleMods(true);
                     this.initModsEnabled();
-                    this.Copy(modsPersistentDirFrom, this.modsPersistentDir);
+                    this.Copy(version.modsPersistentDir, this.modsPersistentDir);
                     this.Copy(modsPersistentDir, this.modsDir);
-                    if(deletePrevious) Directory.Delete(modsPersistentDirFrom, true);
+                    if (deletePrevious)
+                    {
+                        Directory.Delete(version.modsPersistentDir, true);
+                        if (Directory.Exists(version.modsDir)) Directory.Delete(version.modsDir, true);
+                    }
                     this.searchMods();
                 }
             }
