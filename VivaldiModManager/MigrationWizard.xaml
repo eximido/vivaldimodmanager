@@ -10,37 +10,48 @@
         lex:ResxLocalizationProvider.DefaultAssembly="VivaldiModManager"
         lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         mc:Ignorable="d"
-        Title="{lex:Loc MigrationToolTitle}" Height="238" Width="344" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" IsMaxRestoreButtonEnabled="False" ShowMaxRestoreButton="False" MinWidth="324" MaxWidth="344" MinHeight="238">
+        Title="{lex:Loc MigrationToolTitle}" Height="298" Width="344" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" IsMaxRestoreButtonEnabled="False" ShowMaxRestoreButton="False" MinWidth="344" MaxWidth="344" MinHeight="298">
     <Grid>
-        <Grid Margin="0,0,0,41">
+        <Grid Margin="0,0,0,81">
             <Grid Margin="6,5,176,0">
-                <Label Content="{lex:Loc Source}" Margin="0,0,0,135" />
                 <ScrollViewer Height="Auto" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0">
                     <ListBox x:Name="fromList" Width="Auto" Height="Auto">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <RadioButton Content="{Binding version}" IsChecked="{Binding Selected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <RadioButton Content="{Binding version}" GroupName="SrcGroup" IsChecked="{Binding Selected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </ScrollViewer>
+                <Label Content="{lex:Loc Source}" Margin="0,0,0,135" />
             </Grid>
             <Grid Margin="175,5,6,0">
-                <Label Content="{lex:Loc Destination}" Margin="0,0,0,135" />
                 <ScrollViewer Height="Auto" VerticalScrollBarVisibility="Auto" Margin="0,30,0,0">
                     <ListBox x:Name="toList" Width="Auto" Height="Auto">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <RadioButton Content="{Binding version}" IsChecked="{Binding Selected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <RadioButton Content="{Binding version}" GroupName="DstGroup" IsChecked="{Binding Selected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </ScrollViewer>
+                <Label Content="{lex:Loc Destination}" Margin="0,0,0,135" />
             </Grid>
         </Grid>
-        <StackPanel Height="41" Orientation="Horizontal" VerticalAlignment="Bottom">
-            <Button x:Name="migrateButton" Content="{lex:Loc Migrate}" HorizontalAlignment="Left" Margin="10,0,0,7" VerticalAlignment="Bottom" Width="140" Click="migrateButton_Click"/>
+        <Grid Height="76" VerticalAlignment="Bottom">
             <CheckBox x:Name="deletePreviousCheck" Content="{lex:Loc DeletePreviousVersionMigration}" HorizontalAlignment="Left" Margin="10,5,0,7" VerticalAlignment="Top" Height="29" Width="171" />
-        </StackPanel>
+            <CheckBox x:Name="clearTargetCheck" Content="{lex:Loc CleanTarget}" HorizontalAlignment="Left" Margin="196,5,0,0" VerticalAlignment="Top" Height="29" Width="130" />
+            <Button x:Name="migrateButton" Content="{lex:Loc Migrate}" HorizontalAlignment="Left" Margin="10,0,0,7" VerticalAlignment="Bottom" Width="140" Click="migrateButton_Click"/>
+        </Grid>
     </Grid>
 </Controls:MetroWindow>

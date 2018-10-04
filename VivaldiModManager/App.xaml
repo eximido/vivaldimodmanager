@@ -19,6 +19,7 @@
             <local:UnableToChangeThisConverter x:Key="UnableToChangeThisConverter" />
             <local:RemoveDotEnabledConverter x:Key="RemoveDotEnabledConverter" />
             <local:RemoveUnderscoreConverter x:Key="RemoveUnderscoreConverter" />
+            <local:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

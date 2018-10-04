@@ -36,6 +36,7 @@ namespace VivaldiModManager
         private static string communityUri = "https://forum.vivaldi.net";
         private static string downloadModsUri = "https://forum.vivaldi.net/category/52/modifications";
         ModManager modman;
+        SettingsManager setman;
 
         public static string GetLocStr(string name)
         {
@@ -46,9 +47,24 @@ namespace VivaldiModManager
         {
             InitializeComponent();
 
-            #region Language Setting
             LocalizeDictionary.Instance.SetCurrentThreadCulture = true;
-            if (CultureInfo.InstalledUICulture.TwoLetterISOLanguageName == "ru")
+            setman = new SettingsManager(
+                this.Width, this.Height, this.Left, this.Top, WindowState.Normal,
+                0, 0, 0, 0, WindowState.Normal, 0, 0, 0, 0, WindowState.Normal, 
+                new List<string>(), CultureInfo.InstalledUICulture.TwoLetterISOLanguageName);
+            if (!setman.CleanStart)
+            {
+                this.WindowStartupLocation = WindowStartupLocation.Manual;
+                this.Width = setman.Settings.MainWindowWidth;
+                this.Height = setman.Settings.MainWindowHeight;
+                this.Left = setman.Settings.MainWindowLeft;
+                this.Top = setman.Settings.MainWindowTop;
+                if (setman.Settings.MainWindowState != WindowState.Minimized)
+                    this.WindowState = setman.Settings.MainWindowState;
+            }
+
+            #region Language Setting
+            if (setman.Settings.Culture == "ru")
             {
                 this.RussianCheck_Click(RussianCheck, null);
             }
@@ -62,7 +78,7 @@ namespace VivaldiModManager
                     GetLocStr("Warning"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 Application.Current.Shutdown();
             }
-            this.modman = new ModManager();
+            this.modman = new ModManager(this.setman);
             vivaldiVersionsList.ItemsSource = this.modman.vivaldiInstallations;
             var app = this.modman.selectedVersion;
             if(app != null)
@@ -161,10 +177,17 @@ namespace VivaldiModManager
         {
             var app = this.modman.selectedVersion;
             if (app == null || !app.Enabled) return;
-            string allVersionsPath = Directory.GetParent(app.modsPersistentDir).FullName;
             ObservableCollection<MigrateVersions> fromVersions = new ObservableCollection<MigrateVersions>();
             ObservableCollection<MigrateVersions> toVersions = new ObservableCollection<MigrateVersions>();
-            string[] dirs = Directory.GetDirectories(allVersionsPath);
+            List<string> dirs = new List<string>();
+
+            foreach(var item in this.modman.vivaldiInstallations)
+            {
+                string allVersionsPath = Directory.GetParent(item.modsPersistentDir).FullName;
+                dirs.AddRange(Directory.GetDirectories(allVersionsPath));
+            }
+            dirs = dirs.Distinct().ToList();
+
             Regex regm = new Regex(@"(\d\.[\d\.]+)$");
             foreach(var item in this.modman.vivaldiInstallations)
             {
@@ -191,11 +214,23 @@ namespace VivaldiModManager
                     Selected = false
                 });
             }
-            MigrationWizard mwiz = new MigrationWizard();
+            MigrationWizard mwiz = new MigrationWizard(fromVersions, toVersions);
+            if (!this.setman.CleanStart)
+            {
+                if (this.setman.Settings.MigrationWindowWidth != 0) mwiz.Width = this.setman.Settings.MigrationWindowWidth;
+                if (this.setman.Settings.MigrationWindowHeight != 0) mwiz.Height = this.setman.Settings.MigrationWindowHeight;
+                if (this.setman.Settings.MigrationWindowLeft != 0) mwiz.Left = this.setman.Settings.MigrationWindowLeft;
+                if (this.setman.Settings.MigrationWindowTop != 0) mwiz.Top = this.setman.Settings.MigrationWindowTop;
+                if (this.setman.Settings.MigrationWindowState != WindowState.Minimized) mwiz.WindowState = this.setman.Settings.MigrationWindowState;
+                mwiz.WindowStartupLocation = WindowStartupLocation.Manual;
+            }
             mwiz.Owner = this;
-            mwiz.fromList.ItemsSource = fromVersions;
-            mwiz.toList.ItemsSource = toVersions;
             mwiz.ShowDialog();
+            this.setman.Settings.MigrationWindowWidth = mwiz.Width;
+            this.setman.Settings.MigrationWindowHeight = mwiz.Height;
+            this.setman.Settings.MigrationWindowLeft = mwiz.Left;
+            this.setman.Settings.MigrationWindowTop = mwiz.Top;
+            this.setman.Settings.MigrationWindowState = mwiz.WindowState;
 
             var fromVersion = fromVersions.Where(f => f.Selected).FirstOrDefault();
             var toVersion = toVersions.Where(f => f.Selected).FirstOrDefault();
@@ -218,7 +253,7 @@ namespace VivaldiModManager
                     else
                     {
                         var toApp = this.modman.vivaldiInstallations.Where(f => f.version == toVersion.version).First();
-                        toApp.migrateFrom(fromVersion, mwiz.deletePrevious);
+                        toApp.migrateFrom(fromVersion, mwiz.deletePrevious, mwiz.clearTarget);
                         this.modman.selectVivaldiVersion(toApp.version);
                         this.reconnectUI(true);
                     }
@@ -329,6 +364,8 @@ namespace VivaldiModManager
         {
             if (this.modman.vivaldiInstallations.Count > 1)
             {
+                this.setman.Settings.versionsDirectories.Remove(
+                    System.IO.Path.Combine(this.modman.selectedVersion.installPath, this.modman.selectedVersion.version));
                 this.modman.vivaldiInstallations.Remove(this.modman.selectedVersion);
                 this.modman.selectVivaldiVersion(this.modman.vivaldiInstallations.First().version);
                 this.reconnectUI(true);
@@ -342,7 +379,10 @@ namespace VivaldiModManager
             CommonFileDialogResult result = dialog.ShowDialog();
             if (result.ToString() != "Cancel")
             {
-                this.modman.addVivaldiVersion(dialog.FileName, true);
+                if(this.modman.addVivaldiVersion(dialog.FileName, true))
+                {
+                    this.setman.Settings.versionsDirectories.Add(dialog.FileName);
+                }
                 if (this.modman.vivaldiInstallations.Count() == 1)
                 {
                     this.modman.selectVivaldiVersion(this.modman.vivaldiInstallations.First().version);
@@ -368,6 +408,7 @@ namespace VivaldiModManager
             this.EnglishCheck.IsChecked = true;
             this.RussianCheck.IsChecked = false;
             this.ChangeLanguage("en");
+            this.setman.Settings.Culture = "en";
         }
 
         private void RussianCheck_Click(object sender, RoutedEventArgs e)
@@ -375,6 +416,7 @@ namespace VivaldiModManager
             this.EnglishCheck.IsChecked = false;
             this.RussianCheck.IsChecked = true;
             this.ChangeLanguage("ru");
+            this.setman.Settings.Culture = "ru";
         }
 
         private void goDownloadMods_Click(object sender, RoutedEventArgs e)
@@ -405,6 +447,42 @@ namespace VivaldiModManager
         private void goToHome_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(homeUri);
+        }
+
+        private void newMod_Click(object sender, RoutedEventArgs e)
+        {
+            var app = this.modman.selectedVersion;
+            if (app == null) return;
+            ModEditor modEd = new ModEditor(app.modsDir, app.modsPersistentDir);
+            if (!this.setman.CleanStart)
+            {
+                if (this.setman.Settings.EditorWidth != 0) modEd.Width = this.setman.Settings.EditorWidth;
+                if (this.setman.Settings.EditorHeight != 0) modEd.Height = this.setman.Settings.EditorHeight;
+                if (this.setman.Settings.EditorLeft != 0) modEd.Left = this.setman.Settings.EditorLeft;
+                if (this.setman.Settings.EditorTop != 0) modEd.Top = this.setman.Settings.EditorTop;
+                if (this.setman.Settings.EditorState != WindowState.Minimized)
+                    modEd.WindowState = this.setman.Settings.EditorState;
+                modEd.WindowStartupLocation = WindowStartupLocation.Manual;
+            }
+            modEd.ShowDialog();
+            this.setman.Settings.EditorWidth = modEd.Width;
+            this.setman.Settings.EditorHeight = modEd.Height;
+            this.setman.Settings.EditorLeft = modEd.Left;
+            this.setman.Settings.EditorTop = modEd.Top;
+            this.setman.Settings.EditorState = modEd.WindowState;
+            app.searchMods();
+            this.reconnectUI();
+            modEd = null;
+        }
+
+        private void mainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            setman.Settings.MainWindowWidth = this.Width;
+            setman.Settings.MainWindowHeight = this.Height;
+            setman.Settings.MainWindowLeft = this.Left;
+            setman.Settings.MainWindowTop = this.Top;
+            setman.Settings.MainWindowState = this.WindowState;
+            setman.SaveSettings();
         }
     }
 

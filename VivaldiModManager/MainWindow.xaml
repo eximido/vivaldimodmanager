@@ -11,7 +11,7 @@
         lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         mc:Ignorable="d"
         GlowBrush="{DynamicResource AccentColorBrush}"
-        Title="Vivaldi Mod Manager" Height="463" Width="699" WindowStartupLocation="CenterScreen" AllowDrop="True" Drop="mainWindow_Drop" MinWidth="699" MinHeight="463">
+        Title="Vivaldi Mod Manager" Height="463" Width="699" WindowStartupLocation="CenterScreen" AllowDrop="True" Drop="mainWindow_Drop" MinWidth="699" MinHeight="463" Closing="mainWindow_Closing">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -27,6 +27,8 @@
             <Button ToolTip="{lex:Loc Menu}" local:ContextMenuLeftClickBehavior.IsLeftClickEnabled="True">
                 <Button.ContextMenu>
                     <ContextMenu>
+                        <MenuItem Header="{lex:Loc NewMod}" Click="newMod_Click" />
+                        <Separator />
                         <MenuItem Header="{lex:Loc AddFromFile}" Click="addFromFile_button_Click" />
                         <MenuItem Header="{lex:Loc EnableAll}" Click="enableAll_button_Click" />
                         <MenuItem Header="{lex:Loc DisableAll}" Click="disableAll_button_Click" />

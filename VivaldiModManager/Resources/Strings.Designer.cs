@@ -178,6 +178,42 @@ namespace VivaldiModManager.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Clear Target.
+        /// </summary>
+        public static string CleanTarget {
+            get {
+                return ResourceManager.GetString("CleanTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Copy.
+        /// </summary>
+        public static string Copy {
+            get {
+                return ResourceManager.GetString("Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Cut.
+        /// </summary>
+        public static string Cut {
+            get {
+                return ResourceManager.GetString("Cut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Delete source version.
         /// </summary>
         public static string DeletePreviousVersionMigration {
@@ -228,6 +264,24 @@ namespace VivaldiModManager.Resources {
         public static string English {
             get {
                 return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Enter file name.
+        /// </summary>
+        public static string EnterFileName {
+            get {
+                return ResourceManager.GetString("EnterFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Enter file name here....
+        /// </summary>
+        public static string EnterFilenameHere {
+            get {
+                return ResourceManager.GetString("EnterFilenameHere", resourceCulture);
             }
         }
         
@@ -304,11 +358,56 @@ namespace VivaldiModManager.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Mod Type.
+        /// </summary>
+        public static string ModExtension {
+            get {
+                return ResourceManager.GetString("ModExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Mod File Name.
+        /// </summary>
+        public static string ModFileName {
+            get {
+                return ResourceManager.GetString("ModFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Mod Manager on GitLab.
         /// </summary>
         public static string ModManagerOnGitlab {
             get {
                 return ResourceManager.GetString("ModManagerOnGitlab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на _New Mod.
+        /// </summary>
+        public static string NewMod {
+            get {
+                return ResourceManager.GetString("NewMod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Paste.
+        /// </summary>
+        public static string Paste {
+            get {
+                return ResourceManager.GetString("Paste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Redo.
+        /// </summary>
+        public static string Redo {
+            get {
+                return ResourceManager.GetString("Redo", resourceCulture);
             }
         }
         
@@ -358,11 +457,38 @@ namespace VivaldiModManager.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Save and Close.
+        /// </summary>
+        public static string SaveAndClose {
+            get {
+                return ResourceManager.GetString("SaveAndClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Scripts.
         /// </summary>
         public static string Scripts {
             get {
                 return ResourceManager.GetString("Scripts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Show Lines Numbers.
+        /// </summary>
+        public static string ShowLineNumbers {
+            get {
+                return ResourceManager.GetString("ShowLineNumbers", resourceCulture);
             }
         }
         
@@ -381,6 +507,15 @@ namespace VivaldiModManager.Resources {
         public static string Styles {
             get {
                 return ResourceManager.GetString("Styles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Undo.
+        /// </summary>
+        public static string Undo {
+            get {
+                return ResourceManager.GetString("Undo", resourceCulture);
             }
         }
         
@@ -453,6 +588,15 @@ namespace VivaldiModManager.Resources {
         public static string Warning {
             get {
                 return ResourceManager.GetString("Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Word Wrap.
+        /// </summary>
+        public static string WordWrap {
+            get {
+                return ResourceManager.GetString("WordWrap", resourceCulture);
             }
         }
     }

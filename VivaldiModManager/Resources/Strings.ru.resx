@@ -156,6 +156,18 @@
   <data name="CantStartMigrationSameVersions" xml:space="preserve">
     <value>Вы выбрали одну и ту же версию Vivaldi</value>
   </data>
+  <data name="CleanTarget" xml:space="preserve">
+    <value>Очистить цель</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Копировать</value>
+  </data>
+  <data name="Cut" xml:space="preserve">
+    <value>Вырезать</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
   <data name="DeletePreviousVersionMigration" xml:space="preserve">
     <value>Удалить исходную версию</value>
   </data>
@@ -173,6 +185,12 @@
   </data>
   <data name="English" xml:space="preserve">
     <value>Английский</value>
+  </data>
+  <data name="EnterFileName" xml:space="preserve">
+    <value>Введите имя файла</value>
+  </data>
+  <data name="EnterFilenameHere" xml:space="preserve">
+    <value>Введите имя файла здесь...</value>
   </data>
   <data name="Exit" xml:space="preserve">
     <value>Вы_ход</value>
@@ -198,8 +216,23 @@
   <data name="MigrationToolTitle" xml:space="preserve">
     <value>Мастер Миграции</value>
   </data>
+  <data name="ModExtension" xml:space="preserve">
+    <value>Тип мода</value>
+  </data>
+  <data name="ModFileName" xml:space="preserve">
+    <value>Имя файла можа</value>
+  </data>
   <data name="ModManagerOnGitlab" xml:space="preserve">
     <value>Mod Manager на GitLab</value>
+  </data>
+  <data name="NewMod" xml:space="preserve">
+    <value>_Новый мод</value>
+  </data>
+  <data name="Paste" xml:space="preserve">
+    <value>Вставить</value>
+  </data>
+  <data name="Redo" xml:space="preserve">
+    <value>Повторить</value>
   </data>
   <data name="RemoveMod" xml:space="preserve">
     <value>Удалить мод</value>
@@ -216,14 +249,26 @@
   <data name="Russian" xml:space="preserve">
     <value>Русский</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="SaveAndClose" xml:space="preserve">
+    <value>Сохранить и закрыть</value>
+  </data>
   <data name="Scripts" xml:space="preserve">
     <value>Скрипты</value>
+  </data>
+  <data name="ShowLineNumbers" xml:space="preserve">
+    <value>Номера строк</value>
   </data>
   <data name="Source" xml:space="preserve">
     <value>Источник:</value>
   </data>
   <data name="Styles" xml:space="preserve">
     <value>Стили</value>
+  </data>
+  <data name="Undo" xml:space="preserve">
+    <value>Отменить</value>
   </data>
   <data name="Versions" xml:space="preserve">
     <value>Версии</value>
@@ -248,5 +293,8 @@
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Внимание</value>
+  </data>
+  <data name="WordWrap" xml:space="preserve">
+    <value>Перенос слов</value>
   </data>
 </root>

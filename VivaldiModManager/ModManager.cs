@@ -16,6 +16,7 @@ namespace VivaldiModManager
 {
     public class ModManager
     {
+        public SettingsManager setman;
         public ObservableCollection<VivaldiPackage> vivaldiInstallations = new ObservableCollection<VivaldiPackage>();
         public VivaldiPackage selectedVersion
         {
@@ -39,6 +40,7 @@ namespace VivaldiModManager
             public string fileRealpath { get; set; }
             public bool isEnabled { get; set; }
             public Action ModRemoved;
+            public SettingsManager SetMan;
 
             public void ToggleMod(bool parameter)
             {
@@ -66,7 +68,24 @@ namespace VivaldiModManager
 
             public void EditMod()
             {
-                MessageBox.Show("Not implemented yet");
+                ModEditor modEd = new ModEditor(this.filePath, this.fileRealpath);
+                if (!this.SetMan.CleanStart)
+                {
+                    if (this.SetMan.Settings.EditorWidth != 0) modEd.Width = this.SetMan.Settings.EditorWidth;
+                    if (this.SetMan.Settings.EditorHeight != 0) modEd.Height = this.SetMan.Settings.EditorHeight;
+                    if (this.SetMan.Settings.EditorLeft != 0) modEd.Left = this.SetMan.Settings.EditorLeft;
+                    if (this.SetMan.Settings.EditorTop != 0) modEd.Top = this.SetMan.Settings.EditorTop;
+                    if (this.SetMan.Settings.EditorState != WindowState.Minimized)
+                        modEd.WindowState = this.SetMan.Settings.EditorState;
+                    modEd.WindowStartupLocation = WindowStartupLocation.Manual;
+                }
+                modEd.ShowDialog();
+                this.SetMan.Settings.EditorWidth = modEd.Width;
+                this.SetMan.Settings.EditorHeight = modEd.Height;
+                this.SetMan.Settings.EditorLeft = modEd.Left;
+                this.SetMan.Settings.EditorTop = modEd.Top;
+                this.SetMan.Settings.EditorState = modEd.WindowState;
+                modEd = null;
             }
 
             public void ExtractMod()
@@ -158,9 +177,11 @@ namespace VivaldiModManager
             public bool Enabled { get; set; }
             public ObservableCollection<vivaldiMod> installedStyles { get; set; }
             public ObservableCollection<vivaldiMod> installedScripts { get; set; }
+            public SettingsManager setman;
 
-            public VivaldiPackage(string version, string installPath, bool isSelected)
+            public VivaldiPackage(string version, string installPath, SettingsManager SetManager, bool isSelected)
             {
+                this.setman = SetManager;
                 this.installedStyles = new ObservableCollection<vivaldiMod>();
                 this.installedScripts = new ObservableCollection<vivaldiMod>();
                 this.version = version;
@@ -284,7 +305,8 @@ namespace VivaldiModManager
                         fileName = Path.GetFileName(item),
                         filePath = Path.Combine(this.modsPersistentDir + "\\css\\", Path.GetFileName(item)),
                         fileRealpath = Path.Combine(this.modsDir + "\\css\\", Path.GetFileName(item)),
-                        isEnabled = true
+                        isEnabled = true,
+                        SetMan = this.setman
                     };
                     vMod.ModRemoved = this.searchMods;
                     if (item.EndsWith(".disabled"))
@@ -300,7 +322,8 @@ namespace VivaldiModManager
                         fileName = Path.GetFileName(item),
                         filePath = Path.Combine(this.modsPersistentDir + "\\js\\", Path.GetFileName(item)),
                         fileRealpath = Path.Combine(this.modsDir + "\\js\\", Path.GetFileName(item)),
-                        isEnabled = true
+                        isEnabled = true,
+                        SetMan = this.setman
                     };
                     vMod.ModRemoved = this.searchMods;
                     if (item.EndsWith(".disabled"))
@@ -311,12 +334,46 @@ namespace VivaldiModManager
                 }
             }
 
-            public void migrateFrom(MigrateVersions version, bool deletePrevious)
+            private void DeleteDirectory(string path)
+            {
+                foreach (string directory in Directory.GetDirectories(path))
+                {
+                    DeleteDirectory(directory);
+                }
+
+                try
+                {
+                    Directory.Delete(path, true);
+                }
+                catch (IOException)
+                {
+                    Directory.Delete(path, true);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Directory.Delete(path, true);
+                }
+            }
+
+            public void migrateFrom(MigrateVersions version, bool deletePrevious, bool clearTarget)
             {
                 if(this.Enabled)
                 {
                     if (!this.isModsEnabled) this.ToggleMods(true);
                     this.initModsEnabled();
+                    if (clearTarget)
+                    {
+                        if(Directory.Exists(this.modsPersistentDir))
+                        {
+                            this.DeleteDirectory(this.modsPersistentDir);
+                            Directory.CreateDirectory(this.modsPersistentDir);
+                        }
+                        if (Directory.Exists(this.modsDir))
+                        {
+                            this.DeleteDirectory(this.modsDir);
+                            Directory.CreateDirectory(this.modsDir);
+                        }
+                    }
                     this.Copy(version.modsPersistentDir, this.modsPersistentDir);
                     this.Copy(modsPersistentDir, this.modsDir);
                     if (deletePrevious)
@@ -364,9 +421,18 @@ namespace VivaldiModManager
             }
         }
 
-        public ModManager()
+        public ModManager(SettingsManager SetManager)
         {
+            this.setman = SetManager;
             this.searchVivaldiInstallations();
+            List<string> versions = new List<string>(this.setman.Settings.versionsDirectories);
+            foreach (string version in versions)
+            {
+                if (!this.addVivaldiVersion(version, true))
+                {
+                    this.setman.Settings.versionsDirectories.Remove(version);
+                }
+            }
         }
 
         public void searchVivaldiInstallations()
@@ -382,25 +448,29 @@ namespace VivaldiModManager
             if (firstInList != null) this.selectVivaldiVersion(firstInList.version);
         }
 
-        public void addVivaldiVersion(string path, bool versionDirectory = false)
+        public bool addVivaldiVersion(string path, bool versionDirectory = false)
         {
             if(Directory.Exists(path))
             {
                 Regex regm = new Regex(@"(\d\.[\d\.]+)$");
                 if (versionDirectory)
                 {
-                    if(File.Exists(path + "\\vivaldi.dll"))
+                    if (File.Exists(path + "\\vivaldi.dll"))
                     {
                         string version = regm.Match(path).Value;
                         string installPath = path.Replace(version, "");
-                        if (this.vivaldiInstallations.Where(f => f.installPath.StartsWith(installPath)).Count() == 0)
+                        if (this.vivaldiInstallations.Where(f => f.installPath.StartsWith(installPath) && f.version == version).Count() == 0)
                         {
-                            this.vivaldiInstallations.Add(new VivaldiPackage(version, installPath, false));
+                            this.vivaldiInstallations.Add(new VivaldiPackage(version, installPath, this.setman, false));
+                            return true;
                         }
+                        else return false;
                     }
+                    else return false;
                 }
                 else
                 {
+                    bool success = false;
                     Regex reg = new Regex(@"Application\\(\d\.[\d\.]+)$");
                     var versionDirectories = Directory.EnumerateDirectories(path, "*.*", SearchOption.AllDirectories)
                         .Where(f => reg.IsMatch(f)).Distinct().ToList();
@@ -409,11 +479,14 @@ namespace VivaldiModManager
                         if (Directory.Exists(vDirectory))
                         {
                             string version = regm.Match(vDirectory).Value;
-                            this.vivaldiInstallations.Add(new VivaldiPackage(version, path, !(this.vivaldiInstallations.Count() > 0)));
+                            this.vivaldiInstallations.Add(new VivaldiPackage(version, path, this.setman, !(this.vivaldiInstallations.Count() > 0)));
+                            success = true;
                         }
                     }
+                    return success;
                 }
             }
+            return false;
         }
 
         public void selectVivaldiVersion(string version)
