@@ -445,7 +445,7 @@ namespace VivaldiModManager
             if (installPathGlobal != null) this.addVivaldiVersion(installPathGlobal);
 
             var firstInList = this.vivaldiInstallations.FirstOrDefault();
-            if (firstInList != null) this.selectVivaldiVersion(firstInList.version);
+            if (firstInList != null) this.selectVivaldiVersion(firstInList.modsPersistentDir);
         }
 
         public bool addVivaldiVersion(string path, bool versionDirectory = false)
@@ -489,10 +489,10 @@ namespace VivaldiModManager
             return false;
         }
 
-        public void selectVivaldiVersion(string version)
+        public void selectVivaldiVersion(string modsPersistentDir)
         {
             if (this.selectedVersion != null) this.selectedVersion.isSelected = false;
-            this.vivaldiInstallations.Where(f => f.version == version).Single().isSelected = true;
+            this.vivaldiInstallations.Where(f => f.modsPersistentDir == modsPersistentDir).Single().isSelected = true;
         }
     }
 }

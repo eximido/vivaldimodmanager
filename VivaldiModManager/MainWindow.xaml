@@ -208,6 +208,7 @@
                                         <Button Background="{Binding isSelected, Converter={StaticResource ButtonBgColorConverter}}" Click="changeVersion_Click">
                                             <StackPanel Orientation="Horizontal" ToolTip="{Binding Enabled, Converter={StaticResource UnableToChangeThisConverter}}">
                                                 <CheckBox IsChecked="{Binding isModsEnabled}" Command="{Binding Path=ToggleModsCommand}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}, Mode=OneWay}" />
+                                                <Label Content="{Binding modsPersistentDir}" Visibility="Collapsed" />
                                                 <Label Content="{Binding version}" Foreground="{Binding isSelected, Converter={StaticResource ButtonTextColorConverter}}" />
                                             </StackPanel>
                                         </Button>

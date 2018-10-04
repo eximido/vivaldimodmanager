@@ -254,7 +254,7 @@ namespace VivaldiModManager
                     {
                         var toApp = this.modman.vivaldiInstallations.Where(f => f.version == toVersion.version).First();
                         toApp.migrateFrom(fromVersion, mwiz.deletePrevious, mwiz.clearTarget);
-                        this.modman.selectVivaldiVersion(toApp.version);
+                        this.modman.selectVivaldiVersion(toApp.modsPersistentDir);
                         this.reconnectUI(true);
                     }
                 }
@@ -367,7 +367,7 @@ namespace VivaldiModManager
                 this.setman.Settings.versionsDirectories.Remove(
                     System.IO.Path.Combine(this.modman.selectedVersion.installPath, this.modman.selectedVersion.version));
                 this.modman.vivaldiInstallations.Remove(this.modman.selectedVersion);
-                this.modman.selectVivaldiVersion(this.modman.vivaldiInstallations.First().version);
+                this.modman.selectVivaldiVersion(this.modman.vivaldiInstallations.First().modsPersistentDir);
                 this.reconnectUI(true);
             }
         }
@@ -385,7 +385,7 @@ namespace VivaldiModManager
                 }
                 if (this.modman.vivaldiInstallations.Count() == 1)
                 {
-                    this.modman.selectVivaldiVersion(this.modman.vivaldiInstallations.First().version);
+                    this.modman.selectVivaldiVersion(this.modman.vivaldiInstallations.First().modsPersistentDir);
                 }
                 this.reconnectUI(true);
             }

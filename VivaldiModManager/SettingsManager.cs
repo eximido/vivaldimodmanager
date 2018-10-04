@@ -52,7 +52,7 @@ public class SettingsManager
         [XmlAttribute]
         public WindowState EditorState { get; set; }
 
-        [XmlAttribute]
+        [XmlArray("versionsDirectories")]
         public List<string> versionsDirectories { get; set; }
         [XmlAttribute]
         public string Culture { get; set; }
