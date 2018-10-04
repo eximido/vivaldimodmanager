@@ -433,6 +433,8 @@ namespace VivaldiModManager
                     this.setman.Settings.versionsDirectories.Remove(version);
                 }
             }
+            var firstInList = this.vivaldiInstallations.FirstOrDefault();
+            if (firstInList != null) this.selectVivaldiVersion(firstInList.modsPersistentDir);
         }
 
         public void searchVivaldiInstallations()
