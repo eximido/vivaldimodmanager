@@ -46,7 +46,6 @@ namespace VivaldiModManager
         public MainWindow()
         {
             InitializeComponent();
-
             LocalizeDictionary.Instance.SetCurrentThreadCulture = true;
             setman = new SettingsManager(
                 this.Width, this.Height, this.Left, this.Top, WindowState.Normal,
@@ -184,14 +183,15 @@ namespace VivaldiModManager
             foreach(var item in this.modman.vivaldiInstallations)
             {
                 string allVersionsPath = Directory.GetParent(item.modsPersistentDir).FullName;
-                dirs.AddRange(Directory.GetDirectories(allVersionsPath));
+                if(Directory.Exists(allVersionsPath))
+                    dirs.AddRange(Directory.GetDirectories(allVersionsPath));
             }
             dirs = dirs.Distinct().ToList();
 
             Regex regm = new Regex(@"(\d\.[\d\.]+)$");
             foreach(var item in this.modman.vivaldiInstallations)
             {
-                if(item.Enabled)
+                if(item.Enabled && Directory.Exists(Directory.GetParent(item.modsPersistentDir).FullName))
                 {
                     toVersions.Add(new MigrateVersions()
                     {
@@ -206,13 +206,14 @@ namespace VivaldiModManager
             {
                 string ver = regm.Match(dir).Value;
                 var sameInSidebar = this.modman.vivaldiInstallations.Where(f => f.modsPersistentDir == dir).FirstOrDefault();
-                fromVersions.Add(new MigrateVersions()
-                {
-                    version = ver,
-                    modsDir = sameInSidebar == null ? null : sameInSidebar.modsDir,
-                    modsPersistentDir = dir,
-                    Selected = false
-                });
+                if(Directory.Exists(Directory.GetParent(dir).FullName))
+                    fromVersions.Add(new MigrateVersions()
+                    {
+                        version = ver,
+                        modsDir = sameInSidebar == null ? null : sameInSidebar.modsDir,
+                        modsPersistentDir = dir,
+                        Selected = false
+                    });
             }
             MigrationWizard mwiz = new MigrationWizard(fromVersions, toVersions);
             if (!this.setman.CleanStart)
