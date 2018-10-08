@@ -78,6 +78,7 @@ namespace VivaldiModManager
                 Application.Current.Shutdown();
             }
             this.modman = new ModManager(this.setman);
+            this.modman.reconnectUI = () => this.reconnectUI(true);
             vivaldiVersionsList.ItemsSource = this.modman.vivaldiInstallations;
             var app = this.modman.selectedVersion;
             if(app != null)

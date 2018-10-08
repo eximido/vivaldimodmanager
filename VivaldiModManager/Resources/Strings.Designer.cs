@@ -529,6 +529,15 @@ namespace VivaldiModManager.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Oops, looks like this version was deleted..
+        /// </summary>
+        public static string VersionWasDeleted {
+            get {
+                return ResourceManager.GetString("VersionWasDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Vivaldi Community.
         /// </summary>
         public static string VivaldiCommunity {

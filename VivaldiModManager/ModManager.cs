@@ -17,6 +17,7 @@ namespace VivaldiModManager
     public class ModManager
     {
         public SettingsManager setman;
+        public Action reconnectUI { get; set; }
         public ObservableCollection<VivaldiPackage> vivaldiInstallations = new ObservableCollection<VivaldiPackage>();
         public VivaldiPackage selectedVersion
         {
@@ -176,6 +177,7 @@ namespace VivaldiModManager
             public ObservableCollection<vivaldiMod> installedStyles { get; set; }
             public ObservableCollection<vivaldiMod> installedScripts { get; set; }
             public SettingsManager setman;
+            public Action ThisVersionProbablyDeleted { get; set; }
 
             public VivaldiPackage(string version, string installPath, SettingsManager SetManager, bool isSelected)
             {
@@ -184,12 +186,12 @@ namespace VivaldiModManager
                 this.installedScripts = new ObservableCollection<vivaldiMod>();
                 this.version = version;
                 this.installPath = installPath;
-                this.modsPersistentDir = installPath + "\\.vivaldimods\\" + version;
-                this.modsDir = installPath + "\\" + version + "\\resources\\vivaldi\\user_mods";
-                this.browserHtml = installPath + "\\" + version + "\\resources\\vivaldi\\browser.html";
-                this.modLoader = installPath + "\\" + version + "\\resources\\vivaldi\\injectMods.js";
+                this.modsPersistentDir = Path.Combine(installPath, ".vivaldimods", version);
+                this.modsDir = Path.Combine(installPath, version, "resources", "vivaldi", "user_mods");
+                this.browserHtml = Path.Combine(installPath, version, "resources", "vivaldi", "browser.html");
+                this.modLoader = Path.Combine(installPath, version, "resources", "vivaldi", "injectMods.js");
                 this.isSelected = isSelected;
-                this.requiresAdminRights = this.installPath.Contains("Program Files");
+                this.requiresAdminRights = this.installPath.Contains(":\\Program Files");
 
                 if (!(new WindowsPrincipal(WindowsIdentity.GetCurrent())).IsInRole(WindowsBuiltInRole.Administrator))
                 {
@@ -198,6 +200,8 @@ namespace VivaldiModManager
                 {
                     this.Enabled = true;
                 }
+
+                if (!File.Exists(this.browserHtml)) return;
 
                 this.isModsEnabled = File.ReadAllText(this.browserHtml).Contains("<script src=\"injectMods.js\"></script>");
                 this.initModsEnabled();
@@ -355,7 +359,13 @@ namespace VivaldiModManager
 
             public void migrateFrom(MigrateVersions version, bool deletePrevious, bool clearTarget)
             {
-                if(this.Enabled)
+                if (!File.Exists(this.browserHtml))
+                {
+                    this.ThisVersionProbablyDeleted();
+                    return;
+                }
+
+                if (this.Enabled)
                 {
                     if (!this.isModsEnabled) this.ToggleMods(true);
                     this.initModsEnabled();
@@ -385,6 +395,12 @@ namespace VivaldiModManager
 
             public void ToggleMods(bool parameter)
             {
+                if (!File.Exists(this.browserHtml))
+                {
+                    this.ThisVersionProbablyDeleted();
+                    return;
+                }
+
                 if (!parameter)
                 {
                     string browserHtmlText = File.ReadAllText(this.browserHtml);
@@ -438,6 +454,18 @@ namespace VivaldiModManager
             if (firstInList != null) this.selectVivaldiVersion(firstInList.modsPersistentDir);
         }
 
+        public void vivaldiPackageWasDeleted(string deletedPersistentPath)
+        {
+            MessageBox.Show(MainWindow.GetLocStr("VersionWasDeleted"),
+                MainWindow.GetLocStr("Warning"),
+                MessageBoxButton.OK, MessageBoxImage.Warning);
+            var toDelete = this.vivaldiInstallations.Where(f => f.modsPersistentDir == deletedPersistentPath).First();
+            this.vivaldiInstallations.Remove(toDelete);
+            var firstInList = this.vivaldiInstallations.FirstOrDefault();
+            if (firstInList != null) this.selectVivaldiVersion(firstInList.modsPersistentDir);
+            this.reconnectUI();
+        }
+
         public void searchVivaldiInstallations()
         {
             this.vivaldiInstallations.Clear();
@@ -462,9 +490,11 @@ namespace VivaldiModManager
                     {
                         string version = regm.Match(path).Value;
                         string installPath = path.Replace(version, "");
-                        if (this.vivaldiInstallations.Where(f => f.installPath.StartsWith(installPath) && f.version == version).Count() == 0)
+                        if (this.vivaldiInstallations.Where(f => (f.installPath.StartsWith(installPath) || f.modsDir.StartsWith(path)) && f.version == version).Count() == 0)
                         {
-                            this.vivaldiInstallations.Add(new VivaldiPackage(version, installPath, this.setman, false));
+                            var ver = new VivaldiPackage(version, installPath, this.setman, false);
+                            ver.ThisVersionProbablyDeleted += () => this.vivaldiPackageWasDeleted(ver.modsPersistentDir);
+                            this.vivaldiInstallations.Add(ver);
                             return true;
                         }
                         else return false;
@@ -482,7 +512,9 @@ namespace VivaldiModManager
                         if (Directory.Exists(vDirectory))
                         {
                             string version = regm.Match(vDirectory).Value;
-                            this.vivaldiInstallations.Add(new VivaldiPackage(version, path, this.setman, !(this.vivaldiInstallations.Count() > 0)));
+                            var ver = new VivaldiPackage(version, path, this.setman, !(this.vivaldiInstallations.Count() > 0));
+                            ver.ThisVersionProbablyDeleted += () => this.vivaldiPackageWasDeleted(ver.modsPersistentDir);
+                            this.vivaldiInstallations.Add(ver);
                             success = true;
                         }
                     }
@@ -495,7 +527,8 @@ namespace VivaldiModManager
         public void selectVivaldiVersion(string modsPersistentDir)
         {
             if (this.selectedVersion != null) this.selectedVersion.isSelected = false;
-            this.vivaldiInstallations.Where(f => f.modsPersistentDir == modsPersistentDir).Single().isSelected = true;
+            var ver = this.vivaldiInstallations.Where(f => f.modsPersistentDir == modsPersistentDir).FirstOrDefault();
+            if (ver != null) ver.isSelected = true;
         }
     }
 }

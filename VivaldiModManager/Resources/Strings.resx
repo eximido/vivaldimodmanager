@@ -273,6 +273,9 @@
   <data name="Versions" xml:space="preserve">
     <value>Versions</value>
   </data>
+  <data name="VersionWasDeleted" xml:space="preserve">
+    <value>Oops, looks like this version was deleted.</value>
+  </data>
   <data name="VivaldiCommunity" xml:space="preserve">
     <value>Vivaldi Community</value>
   </data>
