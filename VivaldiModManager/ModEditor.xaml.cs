@@ -26,7 +26,10 @@ namespace VivaldiModManager
         public string filePath { get; set; }
         public string fileRealPath { get; set; }
         public bool IsNewFile { get; set; }
+        public SettingsManager SetMan { get; set; }
+        public Action ModCreated { get; set; }
 
+        private bool IsModDisabled = false;
         public ModEditor(string path = "", string realPath = "")
         {
             InitializeComponent();
@@ -34,9 +37,10 @@ namespace VivaldiModManager
             this.fileRealPath = realPath;
             if (File.Exists(this.filePath))
             {
+                if (this.filePath.EndsWith(".disabled")) this.IsModDisabled = true;
                 modEditor.Load(this.filePath);
-                this.fileName = Path.GetFileNameWithoutExtension(this.filePath);
-                this.fileExt = Path.GetExtension(this.filePath);
+                this.fileName = Path.GetFileNameWithoutExtension(this.filePath.Replace(".disabled", ""));
+                this.fileExt = Path.GetExtension(this.filePath.Replace(".disabled", ""));
                 this.IsNewFile = false;
             }
             else
@@ -85,8 +89,10 @@ namespace VivaldiModManager
                 else
                 {
                     string type = this.fileExt.Substring(1);
-                    modEditor.Save(Path.Combine(this.filePath, type, this.fileName + this.fileExt));
-                    modEditor.Save(Path.Combine(this.fileRealPath, type, this.fileName + this.fileExt));
+                    string appendix = this.IsModDisabled ? ".disabled" : "";
+                    modEditor.Save(Path.Combine(this.filePath, type, this.fileName + this.fileExt + appendix));
+                    modEditor.Save(Path.Combine(this.fileRealPath, type, this.fileName + this.fileExt + appendix));
+                    if (this.IsNewFile) this.ModCreated();
                     return true;
                 }
             }
@@ -106,6 +112,15 @@ namespace VivaldiModManager
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
             this.SaveFile();
+        }
+
+        private void modEdWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            this.SetMan.Settings.EditorWidth = this.Width;
+            this.SetMan.Settings.EditorHeight = this.Height;
+            this.SetMan.Settings.EditorLeft = this.Left;
+            this.SetMan.Settings.EditorTop = this.Top;
+            this.SetMan.Settings.EditorState = this.WindowState;
         }
     }
 }

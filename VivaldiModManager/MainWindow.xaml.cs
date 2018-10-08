@@ -465,15 +465,9 @@ namespace VivaldiModManager
                     modEd.WindowState = this.setman.Settings.EditorState;
                 modEd.WindowStartupLocation = WindowStartupLocation.Manual;
             }
-            modEd.ShowDialog();
-            this.setman.Settings.EditorWidth = modEd.Width;
-            this.setman.Settings.EditorHeight = modEd.Height;
-            this.setman.Settings.EditorLeft = modEd.Left;
-            this.setman.Settings.EditorTop = modEd.Top;
-            this.setman.Settings.EditorState = modEd.WindowState;
-            app.searchMods();
-            this.reconnectUI();
-            modEd = null;
+            modEd.SetMan = this.setman;
+            modEd.ModCreated = () => this.reconnectUI(true);
+            modEd.Show();
         }
 
         private void mainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

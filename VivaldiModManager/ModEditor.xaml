@@ -10,7 +10,7 @@
         xmlns:local="clr-namespace:VivaldiModManager"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="Mod Editor" Height="438" Width="739" MinHeight="298" MinWidth="569" WindowStartupLocation="CenterScreen">
+        Title="Mod Editor" Height="438" Width="739" MinHeight="298" MinWidth="569" WindowStartupLocation="CenterScreen" Closing="modEdWindow_Closing">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

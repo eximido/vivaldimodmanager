@@ -48,6 +48,7 @@ namespace VivaldiModManager
                 {
                     string newPath = this.filePath + ".disabled";
                     string newRealpath = this.fileRealpath + ".disabled";
+                    if (!File.Exists(this.filePath) || !File.Exists(this.fileRealpath)) return;
                     File.Move(this.filePath, newPath);
                     File.Move(this.fileRealpath, newRealpath);
                     this.filePath = newPath;
@@ -58,6 +59,7 @@ namespace VivaldiModManager
                 {
                     string newPath = this.filePath.Replace(".disabled", "");
                     string newRealpath = this.fileRealpath.Replace(".disabled", "");
+                    if (!File.Exists(this.filePath) || !File.Exists(this.fileRealpath)) return;
                     File.Move(this.filePath, newPath);
                     File.Move(this.fileRealpath, newRealpath);
                     this.filePath = newPath;
@@ -79,13 +81,8 @@ namespace VivaldiModManager
                         modEd.WindowState = this.SetMan.Settings.EditorState;
                     modEd.WindowStartupLocation = WindowStartupLocation.Manual;
                 }
-                modEd.ShowDialog();
-                this.SetMan.Settings.EditorWidth = modEd.Width;
-                this.SetMan.Settings.EditorHeight = modEd.Height;
-                this.SetMan.Settings.EditorLeft = modEd.Left;
-                this.SetMan.Settings.EditorTop = modEd.Top;
-                this.SetMan.Settings.EditorState = modEd.WindowState;
-                modEd = null;
+                modEd.SetMan = this.SetMan;
+                modEd.Show();
             }
 
             public void ExtractMod()
@@ -97,7 +94,8 @@ namespace VivaldiModManager
                 {
                     try
                     {
-                        File.Copy(this.filePath, sfd.FileName);
+                        if(File.Exists(this.filePath))
+                            File.Copy(this.filePath, sfd.FileName, true);
                     }
                     catch { }
                 }
@@ -277,14 +275,14 @@ namespace VivaldiModManager
             {
                 if (mod.EndsWith(".css"))
                 {
-                    File.Copy(mod, Path.Combine(this.modsPersistentDir + "\\css\\", Path.GetFileName(mod)));
-                    File.Copy(mod, Path.Combine(this.modsDir + "\\css\\", Path.GetFileName(mod)));
+                    File.Copy(mod, Path.Combine(this.modsPersistentDir + "\\css\\", Path.GetFileName(mod)), true);
+                    File.Copy(mod, Path.Combine(this.modsDir + "\\css\\", Path.GetFileName(mod)), true);
                     if (refresh) this.searchMods();
                 }
                 if (mod.EndsWith(".js"))
                 {
-                    File.Copy(mod, Path.Combine(this.modsPersistentDir + "\\js\\", Path.GetFileName(mod)));
-                    File.Copy(mod, Path.Combine(this.modsDir + "\\js\\", Path.GetFileName(mod)));
+                    File.Copy(mod, Path.Combine(this.modsPersistentDir + "\\js\\", Path.GetFileName(mod)), true);
+                    File.Copy(mod, Path.Combine(this.modsDir + "\\js\\", Path.GetFileName(mod)), true);
                     if (refresh) this.searchMods();
                 }
             }
@@ -387,10 +385,11 @@ namespace VivaldiModManager
 
             public void ToggleMods(bool parameter)
             {
-                if(!parameter)
+                if (!parameter)
                 {
                     string browserHtmlText = File.ReadAllText(this.browserHtml);
-                    browserHtmlText = browserHtmlText.Replace("<script src=\"injectMods.js\"></script>", "");
+                    Regex matchModLoader = new Regex(@"(\s+)?\<script\ssrc\=\""injectMods.js\""\>\<\/script\>", RegexOptions.Multiline);
+                    browserHtmlText = matchModLoader.Replace(browserHtmlText, "");
                     File.WriteAllText(this.browserHtml, browserHtmlText);
                     this.isModsEnabled = false;
                     this.installedScripts.Clear();
@@ -399,8 +398,10 @@ namespace VivaldiModManager
                 else
                 {
                     string browserHtmlText = File.ReadAllText(this.browserHtml);
+                    Regex indentRegex = new Regex(@"(\s+)\<script\ssrc\=\""bundle.js\""\>\<\/script\>", RegexOptions.Multiline);
+                    string indent = indentRegex.Match(browserHtmlText).Groups[1].Value;
                     browserHtmlText = browserHtmlText.Replace("<script src=\"bundle.js\"></script>",
-                        "<script src=\"bundle.js\"></script><script src=\"injectMods.js\"></script>");
+                        "<script src=\"bundle.js\"></script>" + indent + "<script src=\"injectMods.js\"></script>");
                     File.WriteAllText(this.browserHtml, browserHtmlText);
                     this.initModsEnabled();
                     this.isModsEnabled = true;
