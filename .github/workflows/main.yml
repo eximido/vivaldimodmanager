@@ -1,0 +1,33 @@
+name: buildapp
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: windows-2019
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+    name: Run MSBuild
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2.1.0
+        id: checkout_code
+        
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.0.0
+        id: setup_msbuild
+        
+      - name: Run MSBuild
+        id: run_msbuild
+        run: |
+          msbuild .\VivaldiModManager.sln  /t:clean /p:Configuration=Release
+          nuget restore .\VivaldiModManager.sln
+          msbuild .\VivaldiModManager.sln  /t:build /p:Configuration=Release
+          
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: objs
+          path: |
+            VivaldiModManager\obj
+          
