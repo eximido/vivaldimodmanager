@@ -188,7 +188,7 @@ namespace VivaldiModManager
                 this.installPath = installPath;
                 this.modsPersistentDir = Path.Combine(installPath, ".vivaldimods", version);
                 this.modsDir = Path.Combine(installPath, version, "resources", "vivaldi", "user_mods");
-                this.browserHtml = Path.Combine(installPath, version, "resources", "vivaldi", "browser.html");
+                this.browserHtml = Path.Combine(installPath, version, "resources", "vivaldi", "window.html");
                 this.modLoader = Path.Combine(installPath, version, "resources", "vivaldi", "injectMods.js");
                 this.isSelected = isSelected;
                 this.requiresAdminRights = this.installPath.Contains(":\\Program Files");
@@ -414,10 +414,10 @@ namespace VivaldiModManager
                 else
                 {
                     string browserHtmlText = File.ReadAllText(this.browserHtml);
-                    Regex indentRegex = new Regex(@"(\s+)\<script\ssrc\=\""bundle.js\""\>\<\/script\>", RegexOptions.Multiline);
+                    Regex indentRegex = new Regex(@"(\s+)\<title\>", RegexOptions.Multiline);
                     string indent = indentRegex.Match(browserHtmlText).Groups[1].Value;
-                    browserHtmlText = browserHtmlText.Replace("<script src=\"bundle.js\"></script>",
-                        "<script src=\"bundle.js\"></script>" + indent + "<script src=\"injectMods.js\"></script>");
+                    browserHtmlText = browserHtmlText.Replace("<body>",
+                        "<body>" + indent + "<script src=\"injectMods.js\"></script>");
                     File.WriteAllText(this.browserHtml, browserHtmlText);
                     this.initModsEnabled();
                     this.isModsEnabled = true;
