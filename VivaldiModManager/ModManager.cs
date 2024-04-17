@@ -173,6 +173,7 @@ namespace VivaldiModManager
             public bool isModsEnabled { get; set; }
             public bool isSelected { get; set; }
             public bool requiresAdminRights { get; set; }
+            public static bool adminRightsRequested = false;
             public bool Enabled { get; set; }
             public ObservableCollection<vivaldiMod> installedStyles { get; set; }
             public ObservableCollection<vivaldiMod> installedScripts { get; set; }
@@ -193,8 +194,26 @@ namespace VivaldiModManager
                 this.isSelected = isSelected;
                 this.requiresAdminRights = this.installPath.Contains(":\\Program Files");
 
-                if (!(new WindowsPrincipal(WindowsIdentity.GetCurrent())).IsInRole(WindowsBuiltInRole.Administrator))
+                if (this.requiresAdminRights && !(new WindowsPrincipal(WindowsIdentity.GetCurrent())).IsInRole(WindowsBuiltInRole.Administrator))
                 {
+                    // try to request admin rights if needed, but do it only once
+                    if (!adminRightsRequested) {
+                        adminRightsRequested = true;
+                        // try to restart the program as admin
+                        var exeName = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+                        ProcessStartInfo startInfo = new ProcessStartInfo(exeName);
+                        startInfo.Verb = "runas";
+                        startInfo.UseShellExecute = true;
+                        try {
+                            System.Diagnostics.Process.Start(startInfo);
+                            // exit from the old app if restart was successful
+                            Application.Current.Shutdown();
+                            return;
+                        } catch (Exception) {
+                            // if user hasn't provided admin rights then proceed like nothing happened
+                        }
+                    }
+                    // if we don't have admin rights and were unable to restart the app as admin, just mark this installation as disabled
                     this.Enabled = false;
                 } else
                 {
