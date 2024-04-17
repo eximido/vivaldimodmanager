@@ -139,13 +139,16 @@
     <value>_Backup</value>
   </data>
   <data name="CantChangeRequireAdmin" xml:space="preserve">
-    <value>Unable to change this!\nPlease run this tool as administrator.</value>
+    <value>Unable to change this!
+Please run this tool as administrator.</value>
   </data>
   <data name="CantFindVivaldi" xml:space="preserve">
     <value>Can't find Vivaldi</value>
   </data>
   <data name="CantFindVivaldiMessage" xml:space="preserve">
-    <value>I've been unable to find Vivaldi installations!\nPlease, add it manually using plus button. You need to add folder which name represents your Vivaldi version, something like this:\n"C:\Program Files\Vivaldi\Application\&lt;version&gt;"</value>
+    <value>Unable to find any Vivaldi installations!
+Please add them manually using plus button. You need to add folder which name represents your Vivaldi version, something like:
+"C:\Program Files\Vivaldi\Application\&lt;version&gt;"</value>
   </data>
   <data name="CantStartMigration" xml:space="preserve">
     <value>Can't start migration</value>

@@ -139,13 +139,16 @@
     <value>_Бекап</value>
   </data>
   <data name="CantChangeRequireAdmin" xml:space="preserve">
-    <value>Невозможно изменить элемент!\nЗапустите утилиту от администратора.</value>
+    <value>Невозможно изменить элемент!
+Запустите утилиту от имени администратора.</value>
   </data>
   <data name="CantFindVivaldi" xml:space="preserve">
     <value>Не могу найти Vivaldi</value>
   </data>
   <data name="CantFindVivaldiMessage" xml:space="preserve">
-    <value>Не удалось найти установленный Vivaldi! Попробуйте добавить его в список самостоятельно. Добавлять нужно не директорию Vivaldi, а директорию с номером версии, выглядит как-то так:\n"C:\Program Files\Vivaldi\Application\&lt;здесь_номер_версии&gt;"</value>
+    <value>Не удалось найти установленный Vivaldi!
+Попробуйте добавить его в список самостоятельно. Добавлять нужно не всю директорию Vivaldi, а каталог с номером версии:
+"C:\Program Files\Vivaldi\Application\&lt;версия&gt;"</value>
   </data>
   <data name="CantStartMigration" xml:space="preserve">
     <value>Не могу начать миграцию</value>
